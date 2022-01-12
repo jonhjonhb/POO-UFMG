@@ -136,3 +136,12 @@ Matrix Matrix::operator~(){
   }
   return temp;
 }
+
+Matrix& Matrix::operator*=(const double& multiplicateData){
+  for(int i = 0; i < nRows; ++i){
+    for(int j = 0; j < nCols; ++j){
+      *m[i,j] *= multiplicateData;
+    }
+  }
+  return *this;
+}
