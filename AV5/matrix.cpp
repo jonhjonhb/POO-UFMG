@@ -86,14 +86,14 @@ double Matrix::get(int row, int col)const{
 }
 
 double& Matrix::operator()(const int rows, const int cols){
-    return *m[rows, cols];
+    return *m[rows-1, cols-1];
 }
 
 Matrix Matrix::operator+(const Matrix& matrixData)const{
     Matrix temp(getRows(), getCols(), 0);
     for(int i = 0; i < nRows; ++i){
       for(int j = 0; j < nCols; ++j){
-        temp(i, j) = m[i][j] + matrixData.get(i, j);
+        temp(i+1, j+1) = m[i][j] + matrixData.get(i+1, j+1);
       }
     }
     return temp;
@@ -102,7 +102,7 @@ Matrix Matrix::operator+(const Matrix& matrixData)const{
 Matrix& Matrix::operator-=(const Matrix& matrixData){
   for(int i = 0; i < nRows; ++i){
     for(int j = 0; j < nCols; ++j){
-      *m[i,j] = get(i, j) - matrixData.get(i, j);
+      *m[i,j] = get(i+1, j+1) - matrixData.get(i+1, j+1);
     }
   }
   return *this;
@@ -112,7 +112,7 @@ Matrix Matrix::operator-(const Matrix& matrixData){
     Matrix temp(getRows(), getCols(), 0);
     for(int i = 0; i < nRows; ++i){
       for(int j = 0; j < nCols; ++j){
-        temp(i, j) = m[i][j] - matrixData.get(i, j);
+        temp(i+1, j+1) = m[i][j] - matrixData.get(i+1, j+1);
       }
     }
     return temp;
@@ -121,7 +121,7 @@ Matrix Matrix::operator-(const Matrix& matrixData){
 Matrix& Matrix::operator+=(const Matrix& matrixData){
   for(int i = 0; i < nRows; ++i){
     for(int j = 0; j < nCols; ++j){
-      *m[i,j] += matrixData.get(i, j);
+      *m[i,j] += matrixData.get(i+1, j+1);
     }
   }
   return *this;
@@ -131,7 +131,7 @@ Matrix Matrix::operator~(){
   Matrix temp(getCols(), getRows(), 0);
   for(int i = 0; i < nRows; ++i){
     for(int j = 0; j < nCols; ++j){
-      temp(j, i) = m[i][j];
+      temp(j+1, i+1) = m[i][j];
     }
   }
   return temp;
@@ -144,14 +144,4 @@ Matrix& Matrix::operator*=(const double& multiplicateData){
     }
   }
   return *this;
-}
-
-Matrix Matrix::operator*(const Matrix& matrixData){
-  Matrix temp(getRows(), getCols(), 0);
-  for(int i = 0; i < nRows; ++i){
-    for(int j = 0; j < nCols; ++j){
-      temp(j, i) = m[i][j] * matrixData.get(i, j);
-    }
-  }
-  return temp;
 }
