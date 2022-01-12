@@ -40,6 +40,8 @@ class Matrix {
         Matrix operator~();
         Matrix& operator*=(const double& multiplicateData);
         Matrix operator*(const Matrix& matrixData);
+        Matrix& operator*=(const Matrix& matrixData);
+        bool operator==(const Matrix& matrixData) const;
 };
 
 #endif

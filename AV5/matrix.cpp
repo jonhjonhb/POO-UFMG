@@ -145,3 +145,21 @@ Matrix& Matrix::operator*=(const double& multiplicateData){
   }
   return *this;
 }
+
+//Fazer Sobrecarga do operador * entre matrix 
+
+bool Matrix::operator==(const Matrix& matrixData)const{
+  if(getRows() != matrixData.getRows() || getCols() != matrixData.getCols()){
+    return false;
+  }
+  bool auxiliar = true;
+  for(int i = 0; i < nRows; ++i){
+    for(int j = 0; j < nCols; ++j){
+      auxiliar = (m[i][j] != matrixData.get(i+1,j+1));
+      if(auxiliar){
+        return false;
+      }
+    }
+  }
+  return true;
+}
