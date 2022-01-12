@@ -35,6 +35,7 @@ class Matrix {
         double& operator()(const int rows, const int cols);
         Matrix operator+(Matrix& matrixData)const;
         Matrix& operator-=(const Matrix& matrixData);
+        Matrix operator-(const Matrix& matrixData);
 };
 
 #endif

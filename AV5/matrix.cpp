@@ -90,7 +90,7 @@ double& Matrix::operator()(const int rows, const int cols){
 }
 
 Matrix Matrix::operator+(Matrix& matrixData)const{
-    Matrix temp(this->getRows(), this->getCols(), 0);
+    Matrix temp(getRows(), getCols(), 0);
     for(int i = 0; i < nRows; ++i){
       for(int j = 0; j < nCols; ++j){
         temp(i, j) = m[i][j] + matrixData.get(i, j);
@@ -106,4 +106,14 @@ Matrix& Matrix::operator-=(const Matrix& matrixData){
     }
   }
   return *this;
+}
+
+Matrix Matrix::operator-(const Matrix& matrixData){
+    Matrix temp(getRows(), getCols(), 0);
+    for(int i = 0; i < nRows; ++i){
+      for(int j = 0; j < nCols; ++j){
+        temp(i, j) = m[i][j] - matrixData.get(i, j);
+      }
+    }
+    return temp;
 }
