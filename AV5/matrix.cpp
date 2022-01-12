@@ -117,3 +117,12 @@ Matrix Matrix::operator-(const Matrix& matrixData){
     }
     return temp;
 }
+
+Matrix& Matrix::operator+=(const Matrix& matrixData){
+  for(int i = 0; i < nRows; ++i){
+    for(int j = 0; j < nCols; ++j){
+      *m[i,j] += matrixData.get(i, j);
+    }
+  }
+  return *this;
+}

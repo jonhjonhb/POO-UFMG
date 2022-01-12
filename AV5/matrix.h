@@ -36,6 +36,7 @@ class Matrix {
         Matrix operator+(Matrix& matrixData)const;
         Matrix& operator-=(const Matrix& matrixData);
         Matrix operator-(const Matrix& matrixData);
+        Matrix& operator+=(const Matrix& matrixData);
 };
 
 #endif
