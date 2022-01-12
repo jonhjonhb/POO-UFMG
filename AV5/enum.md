@@ -4,8 +4,9 @@
 ### Parte 01: Sobrecarga de Operadores
 Dado o código a seguir, implemente as sobrecargas para os operadores de adição (+) e decremento pré-fixado (--). Considere a sobrecarga como funções membro de classe.
 
-#include<iostream>
-class Ponto2D{
+#include <iostream>
+class Ponto2D {
+
     int x,y;
     public:
         Ponto(int xx=0, int yy=0):x(xx),y(yy){ };
