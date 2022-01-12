@@ -32,7 +32,9 @@ class Matrix {
         void unit();
         void zeros(){this->fillWith(0.0);}
         void ones(){this->fillWith(1.0);}
-           
+        double& operator()(const int rows, const int cols);
+        Matrix operator+(Matrix& matrixData)const;
+        Matrix& operator-=(const Matrix& matrixData);
 };
 
 #endif

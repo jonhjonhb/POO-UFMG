@@ -5,7 +5,7 @@ class Ponto{
   
     Ponto(int xx=0, int yy=0):_x(xx),_y(yy){ };
     Ponto& operator-- ();
-    Ponto operator+ (const Ponto& ) const;
+    Ponto operator+ (const Ponto& pontoData) const;
     ~Ponto(){};
 
     // getters
