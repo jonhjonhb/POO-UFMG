@@ -42,6 +42,9 @@ class Matrix {
         Matrix operator*(const Matrix& matrixData);
         Matrix& operator*=(const Matrix& matrixData);
         bool operator==(const Matrix& matrixData) const;
+        bool operator!=(const Matrix& matrixData) const;
+        Matrix operator<<(const Matrix& matrixData) const;
+        Matrix operator>>(const Matrix& matrixData) const;
 };
 
 #endif

@@ -163,3 +163,15 @@ bool Matrix::operator==(const Matrix& matrixData)const{
   }
   return true;
 }
+
+bool Matrix::operator!=(const Matrix& matrixData)const{
+    return !(*this == matrixData);
+}
+
+Matrix Matrix::operator<<(const Matrix& matrixData)const{
+    //Implementar
+}
+
+Matrix Matrix::operator>>(const Matrix& matrixData)const{
+    //Implementar
+}

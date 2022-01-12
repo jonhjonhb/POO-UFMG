@@ -34,7 +34,7 @@ int main() {
   if (A == C)  // verifica a igualdade entre A e C
    if(X != Y)  // verifica a desigualdade entre A e C
     std::cout << Z << std::endl; // impressão de matrizes
-  std::cin >> W;                 // leitura de dados para dentro da matriz Y
+  std::cin >> Y;                 // leitura de dados para dentro da matriz Y
 
   return 0;
 }
