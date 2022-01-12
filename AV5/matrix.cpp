@@ -145,3 +145,13 @@ Matrix& Matrix::operator*=(const double& multiplicateData){
   }
   return *this;
 }
+
+Matrix Matrix::operator*(const Matrix& matrixData){
+  Matrix temp(getRows(), getCols(), 0);
+  for(int i = 0; i < nRows; ++i){
+    for(int j = 0; j < nCols; ++j){
+      temp(j, i) = m[i][j] * matrixData.get(i, j);
+    }
+  }
+  return temp;
+}

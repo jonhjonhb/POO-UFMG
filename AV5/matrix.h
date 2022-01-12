@@ -39,6 +39,7 @@ class Matrix {
         Matrix& operator+=(const Matrix& matrixData);
         Matrix operator~();
         Matrix& operator*=(const double& multiplicateData);
+        Matrix operator*(const Matrix& matrixData);
 };
 
 #endif
