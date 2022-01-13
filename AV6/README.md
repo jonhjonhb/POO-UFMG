@@ -1,6 +1,6 @@
-ELE078 - Programação Orientada a Objetos
-Atividade Prática 06
-Parte 01: Tratamento de Exceção e Funções Template
+# ELE078 - Programação Orientada a Objetos
+## Atividade Prática 06
+### Parte 01: Tratamento de Exceção e Funções Template
 1.1. Escreva uma função template que retorna o n - ésimo termo da série de Fibonacci podendo o valor de retorno ser int , long , float , etc.
 
 1.2. O código a seguir implementa uma classe template de um lista duplamente encadeada. Veja que os métodos erase(Node *it) e erase(const T& value) podem gerar situações de erro (exceção) no código. No momento, caso um erro ocorra, eles enviam uma mensagem de erro na saída padrão, cerr(...) .
@@ -309,7 +309,7 @@ int main(int argc, char *argv[])
     clearscreen();
     
 }
-Parte 02: Revisitando a classe Matrix
+### Parte 02: Revisitando a classe Matrix
 Readequar a classe Matrix (atividade prática 05), para que esta possa armazenar elementos de tipos quaisquer ( int , long , double , etc.). Além disso, as checagens de erro (consistencia) feitas pelos métodos da classe devem agora considerar o lançamento de exceções através da cláusula throw. O programa cliente main() que testa a classe deve tratar as possíveis exceções lançadas, usando as cláusulas try e catch(...)
 
 Veja o exemplo a seguir.
