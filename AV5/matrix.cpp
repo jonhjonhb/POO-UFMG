@@ -168,10 +168,10 @@ bool Matrix::operator!=(const Matrix& matrixData)const{
     return !(*this == matrixData);
 }
 
-Matrix Matrix::operator<<(const Matrix& matrixData)const{
-    //Implementar
+Matrix Matrix::operator<<(std::ostream out){
+  //implementar
 }
 
-Matrix Matrix::operator>>(const Matrix& matrixData)const{
+std::istream Matrix::operator>>(const Matrix& matrixData)const{
     //Implementar
 }
