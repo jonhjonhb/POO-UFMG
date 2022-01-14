@@ -4,12 +4,12 @@
 #include <typeinfo>
 
 // contrutor default - cria uma matriz vazia com nRows = nCols = 0
-template <class T>
+/*template <class T>
 Matrix<T>::Matrix(){
     m = nullptr;
     nRows = 0;
     nCols = 0;
-}
+}*/
 
 template <class T>
 void Matrix<T>::fillWith(const T &value){
@@ -81,7 +81,12 @@ void Matrix<T>::print()const {
 // faz com que a matriz torne-se uma matriz identidade
 template <class T>
 void Matrix<T>::unit(){
-    this->fillWith(0.0);
+    if(typeid(this->m) != typeid(int*)
+    && typeid(this->m) != typeid(float*)
+    && typeid(this->m) != typeid(double*))
+        throw std::invalid_argument("[ERRO: A matriz não é numérica]");
+
+    this->fillWith(T(0.0));
     for (int i = 0; i < std::min(nRows, nCols); i++){
         m[i][i] = 1;
     }   
@@ -122,9 +127,9 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& that){
 // cell operator
 template <class T>
 T& Matrix<T>::operator()(int x, int y)const{
-    if(row == 0 || row>nRows || col == 0 || col>nCols)
+    if(getRows() == 0 || getRows()>nRows || getCols() == 0 || getCols()>nCols)
         throw std::invalid_argument("Erro de atribuição por célula: Índice não existe!");
-    return m[x-1][y-1];
+    return &m[x-1][y-1];
 }
 
 // mais
@@ -244,7 +249,6 @@ template <class T>
 Matrix<T>& Matrix<T>::operator*=(const Matrix<T>& that){
     if(this->nCols != that.getRows()) 
         throw std::invalid_argument("[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]");
-    
 
 	Matrix<T> temp(*this);
 	this->nCols = that.getCols();
