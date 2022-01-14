@@ -11,7 +11,7 @@ if (system( "clear" )) system( "cls" );
 int main(){
     
     std::cout << "\n ---------------Testando construtores -------------- \n" << endl;
-    Matrix<double> m1;
+    Matrix<int> m1;
     std::cout << "Matrix<int> m1" << endl;
     std::cout << "-> Matriz de dimensao " << m1.getRows() << " x " << m1.getCols() << endl;
     std::cout << "m1 = " << m1 << endl;
@@ -55,9 +55,14 @@ int main(){
     clearscreen();
     
     std::cout << "\n --------------- Testando Sobrecarga de Operadores-------------------------- \n" << endl;
-
-    m6(1, 1) = 7; m6(1, 3) = -3; m6(2, 1) = 3.6; m6(2, 2) = -2; m6(3, 1) = 4;
+    try{ m6(1, 1) = 7; } catch(std::invalid_argument ex) { std::cout << ex.what() << std::endl; }
+    try{ m6(1, 3) = -3; } catch(std::invalid_argument ex) { std::cout << ex.what() << std::endl; }
+    try{ m6(2, 1) = 3.6; } catch(std::invalid_argument ex) { std::cout << ex.what() << std::endl; }
+    try{ m6(2, 2) = -2; } catch(std::invalid_argument ex) { std::cout << ex.what() << std::endl; }
+    try{ m6(3, 1) = 4; } catch(std::invalid_argument ex) { std::cout << ex.what() << std::endl; }
     std::cout << "-> Sobrecarga do Operador ( )" << endl;
     std::cout << "m6(1, 1) = 7; m6(1, 3) = -3; m6(2, 1) = 3.6; m6(2, 2) = -2; m6(3, 1) = 4;" << endl;
     std::cout << "m6 = " << m6 << endl;
+
+    
 }
