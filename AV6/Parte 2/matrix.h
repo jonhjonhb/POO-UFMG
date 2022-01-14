@@ -4,27 +4,28 @@
 #include <iostream>
 #include <fstream>
 
+template <class T> 
 class Matrix {
     private:
 
         double** m = nullptr;
-        int nRows;
-        int nCols;
+        T nRows;
+        T nCols;
 
     public:
 
         // Construtores
         Matrix();                           
-        Matrix(int rows, int cols, const double &value = 0.0);
+        Matrix(T rows, T cols, const double &value = 0.0);
         Matrix(std::ifstream &myFile);
         Matrix(const Matrix& that);
         // destrutor
         ~Matrix();
     
         // basic getters
-        int getRows()const{return nRows;}
-        int getCols()const{return nCols;}
-        double get(int row, int col)const;
+        T getRows()const{return nRows;}
+        T getCols()const{return nCols;}
+        T get(T row, T col)const;
         
         // other methods
         void fillWith(const double &value);
@@ -35,7 +36,7 @@ class Matrix {
 
         // operators
 		Matrix& operator=(const Matrix&);
-        double& operator()(int x, int y)const;
+        double& operator()(T x, T y)const;
         Matrix operator+(const Matrix&)const;
         Matrix& operator+=(const Matrix&);
         Matrix operator-(const Matrix&)const;
