@@ -46,4 +46,5 @@ int main(int argc, char *argv[])
     getchar();
     clearscreen();
     
+    return 0;
 }
