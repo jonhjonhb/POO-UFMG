@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+template <class TValor>
 class Matrix {
     private:
 
@@ -45,6 +46,8 @@ class Matrix {
         bool operator!=(const Matrix& matrixData) const;
         Matrix operator<<(std::ostream out);
         std::istream operator>>(const Matrix& matrixData) const;
+        ostream& operator<<(ostream&, const Matrix<TValor>&);
+
 };
 
 #endif

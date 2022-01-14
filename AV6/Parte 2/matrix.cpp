@@ -16,7 +16,6 @@ void Matrix::fillWith(const double &value){
         }
     }
 }
-    
 
 // contrutor parametrico 1 - cria uma matriz com nRows  = rows, nCols = cols e 
 // com todos os elementos iguais a 0.0 (double)

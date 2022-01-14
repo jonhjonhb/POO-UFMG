@@ -8,24 +8,24 @@ template <class T>
 class Matrix {
     private:
 
-        double** m = nullptr;
-        T nRows;
-        T nCols;
+        T** m = nullptr;
+        int nRows;
+        int nCols;
 
     public:
 
         // Construtores
         Matrix();                           
-        Matrix(T rows, T cols, const double &value = 0.0);
+        Matrix(int rows, int cols, const double &value = 0.0);
         Matrix(std::ifstream &myFile);
         Matrix(const Matrix& that);
         // destrutor
         ~Matrix();
     
         // basic getters
-        T getRows()const{return nRows;}
-        T getCols()const{return nCols;}
-        T get(T row, T col)const;
+        int getRows()const{return nRows;}
+        int getCols()const{return nCols;}
+        T get(int row, int col)const;
         
         // other methods
         void fillWith(const double &value);
@@ -36,7 +36,7 @@ class Matrix {
 
         // operators
 		Matrix& operator=(const Matrix&);
-        double& operator()(T x, T y)const;
+        double& operator()(int x, int y)const;
         Matrix operator+(const Matrix&)const;
         Matrix& operator+=(const Matrix&);
         Matrix operator-(const Matrix&)const;
