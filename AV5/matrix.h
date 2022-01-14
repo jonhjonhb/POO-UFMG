@@ -4,11 +4,10 @@
 #include <iostream>
 #include <fstream>
 
-template <class TValor>
 class Matrix {
     private:
 
-        double** m;
+        double** m = nullptr;
         int nRows;
         int nCols;
 
@@ -33,20 +32,22 @@ class Matrix {
         void unit();
         void zeros(){this->fillWith(0.0);}
         void ones(){this->fillWith(1.0);}
-        double& operator()(const int rows, const int cols);
-        Matrix operator+(const Matrix& matrixData)const;
-        Matrix& operator-=(const Matrix& matrixData);
-        Matrix operator-(const Matrix& matrixData);
-        Matrix& operator+=(const Matrix& matrixData);
-        Matrix operator~();
-        Matrix& operator*=(const double& multiplicateData);
-        Matrix operator*(const Matrix& matrixData);
-        Matrix& operator*=(const Matrix& matrixData);
-        bool operator==(const Matrix& matrixData) const;
-        bool operator!=(const Matrix& matrixData) const;
-        Matrix operator<<(std::ostream out);
-        std::istream operator>>(const Matrix& matrixData) const;
-        ostream& operator<<(ostream&, const Matrix<TValor>&);
+
+        // operators
+		Matrix& operator=(const Matrix&);
+        double& operator()(int x, int y)const;
+        Matrix operator+(const Matrix&)const;
+        Matrix& operator+=(const Matrix&);
+        Matrix operator-(const Matrix&)const;
+        Matrix& operator-=(const Matrix&);
+        Matrix operator~()const;
+        Matrix operator*(const Matrix&)const;
+        Matrix& operator*=(double coeficiente);
+        Matrix& operator*=(const Matrix&);
+        bool operator==(const Matrix&)const;
+        bool operator!=(const Matrix&)const;
+        friend std::ostream& operator<<(std::ostream &out, const Matrix &matrixData);
+        friend std::istream& operator>>(std::istream &in, Matrix &matrixData);
 
 };
 
