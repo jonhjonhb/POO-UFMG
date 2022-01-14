@@ -197,8 +197,7 @@ Node<T>* List<T>::erase(Node<T> *it){
             return temp2;
         }
     }
-    else
-        Throw "Impossivel remover o elemento da Lista.";    
+    else { throw std::invalid_argument("Lista Vazia! Impossivel remover o elemento da Lista."); }
 }
 
 
@@ -207,17 +206,16 @@ Node<T>* List<T>::erase(Node<T> *it){
 template<class T> 
 void List<T>::erase(const T &value){
     if (!empty()){
-        Node<T> *it;
-        it = head;
-        while(it != 0){
-            if (*(it->item) ==  value)
-                it = erase(it);
-            else
-                it = it->next;
-        }
+      Node<T> *it;
+      it = head;
+      while(it != 0){
+        if (*(it->item) ==  value)
+          it = erase(it);
+        else
+          it = it->next;
+      }
     }
-    else
-        Throw "Lista Vazia! Impossivel remover o elemento da Lista.";   
+    else { throw std::invalid_argument("Lista Vazia! Impossivel remover o elemento da Lista."); }
 }
 
 // sobrecarga do operador de atribuição
