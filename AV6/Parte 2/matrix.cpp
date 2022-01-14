@@ -146,7 +146,7 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& that){
 // menos
 template <class T>
 Matrix<T> Matrix<T>::operator-(const Matrix<T>& that)const{
-    Matrix temp(*this);
+    Matrix<T> temp(*this);
     for(int i = 0; i < nRows; ++i){
         for(int j = 0; j < nCols; ++j){
             temp(i+1,j+1) -= that.get(i+1, j+1);
