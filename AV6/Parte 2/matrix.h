@@ -16,9 +16,9 @@ class Matrix {
 
         // Construtores
         Matrix();                           
-        Matrix(int rows, int cols, const double &value = 0.0);
+        Matrix(int rows, int cols, const T &value);
         Matrix(std::ifstream &myFile);
-        Matrix(const Matrix& that);
+        Matrix(const Matrix<T>& that);
         // destrutor
         ~Matrix();
     
@@ -28,27 +28,27 @@ class Matrix {
         T get(int row, int col)const;
         
         // other methods
-        void fillWith(const double &value);
+        void fillWith(const T &value);
         void print() const;
         void unit();
         void zeros(){this->fillWith(0.0);}
         void ones(){this->fillWith(1.0);}
 
         // operators
-		Matrix& operator=(const Matrix&);
-        double& operator()(int x, int y)const;
-        Matrix operator+(const Matrix&)const;
-        Matrix& operator+=(const Matrix&);
-        Matrix operator-(const Matrix&)const;
-        Matrix& operator-=(const Matrix&);
-        Matrix operator~()const;
-        Matrix operator*(const Matrix&)const;
-        Matrix& operator*=(double coeficiente);
-        Matrix& operator*=(const Matrix&);
-        bool operator==(const Matrix&)const;
-        bool operator!=(const Matrix&)const;
-        friend std::ostream& operator<<(std::ostream &out, const Matrix &matrixData);
-        friend std::istream& operator>>(std::istream &in, Matrix &matrixData);
+		Matrix<T>& operator=(const Matrix<T>&);
+        T& operator()(int x, int y)const;
+        Matrix<T> operator+(const Matrix<T>&)const;
+        Matrix<T>& operator+=(const Matrix<T>&);
+        Matrix<T> operator-(const Matrix<T>&)const;
+        Matrix<T>& operator-=(const Matrix<T>&);
+        Matrix<T> operator~()const;
+        Matrix<T> operator*(const Matrix<T>&)const;
+        Matrix<T>& operator*=(T coeficiente);
+        Matrix<T>& operator*=(const Matrix<T>&);
+        bool operator==(const Matrix<T>&)const;
+        bool operator!=(const Matrix<T>&)const;
+        friend std::ostream& operator<<(std::ostream &out, const Matrix<T> &matrixData);
+        friend std::istream& operator>>(std::istream &in, Matrix<T> &matrixData);
 
 };
 
