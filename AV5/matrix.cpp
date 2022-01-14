@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include <algorithm>
+#include <vector>
 
 // contrutor default - cria uma matriz vazia com nRows = nCols = 0  
 Matrix::Matrix(){
@@ -85,93 +86,172 @@ double Matrix::get(int row, int col)const{
     return m[row-1][col-1];
 }
 
-double& Matrix::operator()(const int rows, const int cols){
-    return *m[rows-1, cols-1];
+// OPERATORS
+Matrix& Matrix::operator=(const Matrix& that){
+	Matrix temp(that);
+	
+	m = new double*[temp.getRows()];
+    for(int i = 0; i < temp.getRows(); ++i){
+        m[i] = new double[temp.getCols()];
+    }
+	this->nRows = temp.getRows();
+	this->nCols = temp.getCols();
+	for(int i = 0; i < nRows; ++i){
+        for(int j = 0; j < nCols; ++j){
+            m[i][j] += temp.get(i+1, j+1);
+        }
+	}
+	return *this;
 }
 
-Matrix Matrix::operator+(const Matrix& matrixData)const{
-    Matrix temp(getRows(), getCols(), 0);
+// cell operator
+double& Matrix::operator()(int x, int y)const{
+    return m[x-1][y-1];
+}
+
+// mais
+Matrix Matrix::operator+(const Matrix& that)const{
+    Matrix temp(*this);
     for(int i = 0; i < nRows; ++i){
-      for(int j = 0; j < nCols; ++j){
-        temp(i+1, j+1) = m[i][j] + matrixData.get(i+1, j+1);
-      }
+        for(int j = 0; j < nCols; ++j){
+            temp(i+1, j+1) += m[i][j];
+        }
     }
     return temp;
 }
 
-Matrix& Matrix::operator-=(const Matrix& matrixData){
-  for(int i = 0; i < nRows; ++i){
-    for(int j = 0; j < nCols; ++j){
-      *m[i,j] = get(i+1, j+1) - matrixData.get(i+1, j+1);
-    }
-  }
-  return *this;
-}
-
-Matrix Matrix::operator-(const Matrix& matrixData){
-    Matrix temp(getRows(), getCols(), 0);
+// mais igual
+Matrix& Matrix::operator+=(const Matrix& that){
     for(int i = 0; i < nRows; ++i){
-      for(int j = 0; j < nCols; ++j){
-        temp(i+1, j+1) = m[i][j] - matrixData.get(i+1, j+1);
-      }
+        for(int j = 0; j < nCols; ++j){
+            this->m[i][j] += that.get(i+1, j+1);
+        }
+    }
+    return *this;
+}
+// menos
+Matrix Matrix::operator-(const Matrix& that)const{
+    Matrix temp(*this);
+    for(int i = 0; i < nRows; ++i){
+        for(int j = 0; j < nCols; ++j){
+            temp(i+1,j+1) -= that.get(i+1, j+1);
+        }
     }
     return temp;
 }
 
-Matrix& Matrix::operator+=(const Matrix& matrixData){
-  for(int i = 0; i < nRows; ++i){
-    for(int j = 0; j < nCols; ++j){
-      *m[i,j] += matrixData.get(i+1, j+1);
+// menos igual
+Matrix& Matrix::operator-=(const Matrix& that){
+    for(int i = 0; i < nRows; ++i){
+        for(int j = 0; j < nCols; ++j){
+            this->m[i][j] -= that.get(i+1, j+1);
+        }
     }
-  }
-  return *this;
+    return *this;
 }
 
-Matrix Matrix::operator~(){
-  Matrix temp(getCols(), getRows(), 0);
-  for(int i = 0; i < nRows; ++i){
-    for(int j = 0; j < nCols; ++j){
-      temp(j+1, i+1) = m[i][j];
+// not (transpose)
+Matrix Matrix::operator~()const{
+    Matrix temp(nCols, nRows, 0);
+    for(int i = 0; i < temp.getRows(); ++i){
+        for(int j = 0; j < temp.getCols(); ++j){
+            temp(i+1,j+1) = m[j][i];
+        }
     }
-  }
-  return temp;
+    return temp;
 }
 
-Matrix& Matrix::operator*=(const double& multiplicateData){
-  for(int i = 0; i < nRows; ++i){
-    for(int j = 0; j < nCols; ++j){
-      *m[i,j] *= multiplicateData;
+// vezes
+Matrix Matrix::operator*(const Matrix& that)const{
+	if(this->nCols != that.getRows()){
+		std::cout << "[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]" << std::endl;
+		return *this;
+	}
+	Matrix temp(this->nRows, that.getCols());
+
+    for(int i = 0; i < temp.getRows(); ++i){
+        for(int j = 0; j < temp.getCols(); ++j){
+            for(int k = 0; k < temp.getCols(); ++k){
+				temp(i+1,j+1) += m[i][k]*that.get(k+1, j+1);
+			}
+        }
     }
-  }
-  return *this;
+    return temp;
 }
 
-//Fazer Sobrecarga do operador * entre matrix 
-
-bool Matrix::operator==(const Matrix& matrixData)const{
-  if(getRows() != matrixData.getRows() || getCols() != matrixData.getCols()){
-    return false;
-  }
-  bool auxiliar = true;
-  for(int i = 0; i < nRows; ++i){
-    for(int j = 0; j < nCols; ++j){
-      auxiliar = (m[i][j] != matrixData.get(i+1,j+1));
-      if(auxiliar){
-        return false;
-      }
+// vezes igual constante
+Matrix& Matrix::operator*=(double coeficiente){
+    for(int i = 0; i < nRows; ++i){
+        for(int j = 0; j < nCols; ++j){
+            this->m[i][j] *= coeficiente;
+        }
     }
-  }
-  return true;
+    return *this;
 }
 
-bool Matrix::operator!=(const Matrix& matrixData)const{
-    return !(*this == matrixData);
+// vezes igual matrix
+Matrix& Matrix::operator*=(const Matrix& that){
+    if(this->nCols != that.getRows()){
+		std::cout << "[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]" << std::endl;
+		return *this;
+	}
+	Matrix temp(*this);
+	this->nCols = that.getCols();
+    for(int i = 0; i < nRows; ++i){
+        for(int j = 0; j < nCols; ++j){
+			m[i][j] = 0.0;
+            for(int k = 0; k < nCols; ++k){
+				m[i][j] += temp.get(i+1,k+1)*that.get(k+1,j+1);
+			}
+        }
+    }
+	return *this;
 }
 
-Matrix Matrix::operator<<(std::ostream out){
-  //implementar
+// bool igualdade
+bool Matrix::operator==(const Matrix& that)const{
+    bool isEqual = true;
+	if(nRows != that.getRows() || nCols != that.getCols()) return false;
+    for(int i = 0; i < nRows; ++i){
+        for(int j = 0; j < nCols; ++j){
+            if(this->m[i][j] != that.get(i+1, j+1))
+                isEqual = false;
+        }
+    }
+    return isEqual;
 }
 
-std::istream Matrix::operator>>(const Matrix& matrixData)const{
-    //Implementar
+// bool diferença
+bool Matrix::operator!=(const Matrix& that)const{
+    bool isEqual = true;
+	if(nRows != that.getRows() || nCols != that.getCols()) return true;
+    for(int i = 0; i < nRows; ++i){
+        for(int j = 0; j < nCols; ++j){
+            if(this->m[i][j] != that.get(i+1, j+1))
+                isEqual = false;
+        }
+    }
+    return !isEqual;
+}
+
+// cout
+std::ostream& operator<<(std::ostream &out, const Matrix &matrixData){
+    matrixData.print();
+    return out;
+}
+
+// cin
+std::istream& operator>>(std::istream &in, Matrix &matrixData){
+	std::cout << "Digite o número de linhas e colunas da matriz:" << std::endl;
+	std::cin >> matrixData.nRows >> matrixData.nCols;
+	matrixData.m = new double*[matrixData.getRows()];
+    for(int i = 0; i < matrixData.getRows(); ++i){
+        matrixData.m[i] = new double[matrixData.getCols()];
+    }
+	for(int i = 0; i < matrixData.getRows(); ++i){
+		for(int j = 0; j < matrixData.getCols(); ++j ){
+			in >> matrixData(i+1,j+1);
+		}
+	}
+	return in;
 }
