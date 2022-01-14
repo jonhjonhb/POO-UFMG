@@ -90,9 +90,8 @@ void Matrix<T>::unit(){
 
 template <class T>
 T Matrix<T>::get(int row, int col)const{
-    if(row == 0 || row>nRows || col == 0 || col>nCols){
-        std::cout << "Índice não existe! Retorno padrão: "; return 0;
-    }
+    if(row == 0 || row>nRows || col == 0 || col>nCols)
+    throw std::invalid_argument("Índice não existe! Retorno padrão: ");
     return m[row-1][col-1];
 }
 
@@ -182,10 +181,8 @@ Matrix<T> Matrix<T>::operator~()const{
 // vezes
 template <class T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T>& that)const{
-	if(this->nCols != that.getRows()){
-		std::cout << "[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]" << std::endl;
-		return *this;
-	}
+	if(this->nCols != that.getRows()) throw std::invalid_argument("[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]");
+
 	Matrix<T> temp(this->nRows, that.getCols());
 
     for(int i = 0; i < temp.getRows(); ++i){
@@ -212,10 +209,8 @@ Matrix<T>& Matrix<T>::operator*=(T coeficiente){
 // vezes igual matrix
 template <class T>
 Matrix<T>& Matrix<T>::operator*=(const Matrix<T>& that){
-    if(this->nCols != that.getRows()){
-		std::cout << "[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]" << std::endl;
-		return *this;
-	}
+    if(this->nCols != that.getRows()) throw std::invalid_argument("[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]");
+
 	Matrix<T> temp(*this);
 	this->nCols = that.getCols();
     for(int i = 0; i < nRows; ++i){
@@ -233,7 +228,7 @@ Matrix<T>& Matrix<T>::operator*=(const Matrix<T>& that){
 template <class T>
 bool Matrix<T>::operator==(const Matrix<T>& that)const{
     bool isEqual = true;
-	if(nRows != that.getRows() || nCols != that.getCols()) return false;
+    if(nRows != that.getRows() || nCols != that.getCols()) return false;
     for(int i = 0; i < nRows; ++i){
         for(int j = 0; j < nCols; ++j){
             if(this->m[i][j] != that.get(i+1, j+1))
