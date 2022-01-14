@@ -1,3 +1,4 @@
+#include <typeinfo>
 #include <cstdlib> // system()
 #include <iostream>
 using namespace std;
