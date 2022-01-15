@@ -85,7 +85,7 @@ List<T>::~List(){
 
 // construtor de copia
 template<class T> 
-List<T>::List<T>(const List& L){
+List<T>::List(const List& L){
     *this = L;
 }
 
