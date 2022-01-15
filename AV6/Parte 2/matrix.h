@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 template <class T> 
 class Matrix {
@@ -57,8 +58,14 @@ class Matrix {
         int getRows()const{return nRows;}
         int getCols()const{return nCols;}
         T get(int row, int col)const{
-            if(row == 0 || row>nRows || col == 0 || col>nCols)
-                throw std::invalid_argument("Índice não existe!");
+            if(row == 0 || row>nRows || col == 0 || col>nCols){
+                std::string errorMsg("Erro de busca por celula: Indice (");
+                errorMsg += std::to_string(row);
+                errorMsg += ", ";
+                errorMsg += std::to_string(col);
+                errorMsg += ") nao existe!";
+                throw std::invalid_argument(errorMsg);
+                }
             return m[row-1][col-1];
         }
         
@@ -79,24 +86,27 @@ class Matrix {
             }
         }
         void unit(){
-            if(typeid(this->m) != typeid(int*)
-            && typeid(this->m) != typeid(float*)
-            && typeid(this->m) != typeid(double*))
-                throw std::invalid_argument("[ERRO: A matriz não é numérica]");
+            if(getRows()!=getCols()){
+                throw std::invalid_argument("[ERRO(unit()): A matriz nao e quadrada]");
+            }
 
             this->fillWith(T(0.0));
             for (int i = 0; i < std::min(nRows, nCols); i++){
                 m[i][i] = 1;
             }   
         }
-        void zeros(){this->fillWith(0.0);}
-        void ones(){this->fillWith(1.0);}
+        void zeros(){
+            this->fillWith(T(0.0));
+        }
+        void ones(){
+            this->fillWith(T(1.0));
+        }
 
         // operators
 		Matrix<T>& operator=(const Matrix<T>& that){
             if(this->nCols != that.getCols()
             || this->nRows != that.getRows())
-                throw std::invalid_argument("[ERRO: Os números de colunas e linhas das duas matrizes devem ser os mesmo]");
+                throw std::invalid_argument("[ERRO(atribuicao): Os numeros de colunas e linhas das duas matrizes devem ser os mesmos]");
 
             Matrix<T> temp(that);
 
@@ -108,25 +118,31 @@ class Matrix {
             this->nCols = temp.getCols();
             for(int i = 0; i < nRows; ++i){
                 for(int j = 0; j < nCols; ++j){
-                    m[i][j] += temp.get(i+1, j+1);
+                    m[i][j] = temp.get(i+1, j+1);
                 }
             }
             return *this;
         }
         T& operator()(int x, int y)const{
-            if(getRows() == 0 || getRows()>nRows || getCols() == 0 || getCols()>nCols)
-                throw std::invalid_argument("Erro de atribuição por célula: Índice não existe!");
+            if(x == 0 || x>nRows || y == 0 || y>nCols){
+                std::string errorMsg("Erro de atribuicao por celula: Indice (");
+                errorMsg += std::to_string(x);
+                errorMsg += ", ";
+                errorMsg += std::to_string(y);
+                errorMsg += ") nao existe!";
+                throw std::invalid_argument(errorMsg);
+            }
             return m[x-1][y-1];
         }
         Matrix<T> operator+(const Matrix<T>& that)const{
             if(this->nCols != that.getCols()
             || this->nRows != that.getRows())
-                throw std::invalid_argument("[ERRO: Os números de colunas e linhas das duas matrizes devem ser os mesmo]");
-
+                throw std::invalid_argument("[ERRO(soma): Os numeros de colunas e linhas das duas matrizes devem ser os mesmos]");
+            
             Matrix<T> temp(*this);
             for(int i = 0; i < nRows; ++i){
                 for(int j = 0; j < nCols; ++j){
-                    temp(i+1, j+1) += m[i][j];
+                    temp(i+1, j+1) += that.m[i][j];
                 }
             }
             return temp;
@@ -134,8 +150,7 @@ class Matrix {
         Matrix<T>& operator+=(const Matrix<T>& that){
             if(this->nCols != that.getCols()
             || this->nRows != that.getRows())
-                throw std::invalid_argument("[ERRO: Os números de colunas e linhas das duas matrizes devem ser os mesmo]");
-
+                throw std::invalid_argument("[ERRO(soma e atribuicao): Os numeros de colunas e linhas das duas matrizes devem ser os mesmos]");
 
             for(int i = 0; i < nRows; ++i){
                 for(int j = 0; j < nCols; ++j){
@@ -147,7 +162,7 @@ class Matrix {
         Matrix<T> operator-(const Matrix<T>& that)const{
             if(this->nCols != that.getCols()
             || this->nRows != that.getRows())
-                throw std::invalid_argument("[ERRO: Os números de colunas e linhas das duas matrizes devem ser os mesmo]");
+                throw std::invalid_argument("[ERRO(subtracao): Os numeros de colunas e linhas das duas matrizes devem ser os mesmos]");
 
             Matrix temp(*this);
             for(int i = 0; i < nRows; ++i){
@@ -160,8 +175,8 @@ class Matrix {
         Matrix<T>& operator-=(const Matrix<T>& that){
             if(this->nCols != that.getCols()
             || this->nRows != that.getRows())
-                throw std::invalid_argument("[ERRO: Os números de colunas e linhas das duas matrizes devem ser os mesmo]");
-            
+                throw std::invalid_argument("[ERRO(subtracao e atribuicao): Os numeros de colunas e linhas das duas matrizes devem ser os mesmos]");
+
             for(int i = 0; i < nRows; ++i){
                 for(int j = 0; j < nCols; ++j){
                     this->m[i][j] -= that.get(i+1, j+1);
@@ -170,7 +185,7 @@ class Matrix {
             return *this;
         }
         Matrix<T> operator~()const{
-            Matrix<T> temp(nCols, nRows, 0);
+            Matrix<T> temp(nCols, nRows, this->m[0][0]);
             for(int i = 0; i < temp.getRows(); ++i){
                 for(int j = 0; j < temp.getCols(); ++j){
                     temp(i+1,j+1) = m[j][i];
@@ -180,10 +195,9 @@ class Matrix {
         }
         Matrix<T> operator*(const Matrix<T>& that)const{
             if(this->nCols != that.getRows()) 
-                throw std::invalid_argument("[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]");
-            
+                throw std::invalid_argument("[ERRO(multiplicacao): O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]");
 
-            Matrix<T> temp(this->nRows, that.getCols());
+            Matrix<T> temp(this->getRows(), that.getCols(), T(0.0));
 
             for(int i = 0; i < temp.getRows(); ++i){
                 for(int j = 0; j < temp.getCols(); ++j){
@@ -204,7 +218,7 @@ class Matrix {
         }
         Matrix<T>& operator*=(const Matrix<T>& that){
             if(this->nCols != that.getRows()) 
-                throw std::invalid_argument("[ERRO: O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]");
+                throw std::invalid_argument("[ERRO(multiplicacao e atribuicao): O número de colunas da primeira matriz deve ser o mesmo número de linhas da segunda]");
 
             Matrix<T> temp(*this);
             this->nCols = that.getCols();
