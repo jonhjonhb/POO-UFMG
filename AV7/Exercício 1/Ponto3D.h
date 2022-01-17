@@ -6,6 +6,7 @@ class Ponto3D: public Ponto2D{
         Ponto3D(double xx = 0, double yy = 0, double zz=0): Ponto2D(xx, yy), z(zz) { };
         friend std::ostream& operator<< (std::ostream &op, const Ponto3D &p);
         Ponto3D& operator= (const Ponto3D &p);
+        Ponto3D& operator= (const Ponto2D &p);
         void set(double nx = 0, double ny = 0, double nz=0) { set(nx, ny); z=nz; }
         double get_z(void) { return z; }
             
@@ -24,5 +25,10 @@ std::ostream& operator<< (std::ostream &op, const Ponto3D &p){
 
 Ponto3D& Ponto3D::operator= (const Ponto3D &p){
     this->set(p.get_x(), p.get_y(), p.get_z());
+    return *this;
+}
+
+Ponto3D& Ponto3D::operator= (const Ponto3D &p){
+    this->set(p.get_x(), p.get_y(), 0);
     return *this;
 }
