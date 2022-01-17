@@ -6,7 +6,7 @@
 class Ponto2D{
     
     public:
-        Ponto2D(double xx = 0.0, double yy = 0.0):x(xx),y(yy){ };
+        Ponto2D(double xx = 0.0, double yy = 0.0):x(xx),y(yy){ }
         friend std::ostream& operator<< (std::ostream &op, const Ponto2D &p);
         Ponto2D& operator= (const Ponto2D &p);
         ~Ponto2D(){};
