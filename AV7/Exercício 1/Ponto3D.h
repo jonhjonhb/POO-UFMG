@@ -1,4 +1,7 @@
-#include <Ponto2D.h>
+#ifndef PONTO3D_H
+#define PONTO3D_H
+
+#include "Ponto2D.h"
 
 class Ponto3D: public Ponto2D{
     
@@ -8,7 +11,7 @@ class Ponto3D: public Ponto2D{
         Ponto3D& operator= (const Ponto3D &p);
         Ponto3D& operator= (const Ponto2D &p);
         void set(double nx = 0, double ny = 0, double nz=0) { set(nx, ny); z=nz; }
-        double get_z(void) { return z; }
+        double get_z(void) const { return z; }
             
     
     private:
@@ -28,7 +31,9 @@ Ponto3D& Ponto3D::operator= (const Ponto3D &p){
     return *this;
 }
 
-Ponto3D& Ponto3D::operator= (const Ponto3D &p){
+Ponto3D& Ponto3D::operator= (const Ponto2D &p){
     this->set(p.get_x(), p.get_y(), 0);
     return *this;
 }
+
+#endif
