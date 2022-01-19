@@ -24,10 +24,11 @@ class Box: public Ponto3D{
 			double getLargura(void) const { return _largura; }
 			double getAltura(void) const { return _altura; }
 			double getProfundidade(void) const { return _profundidade; }
-			double getArea(void) const { /*implementar*/ }
+			double getArea(void) const { return 2*(getLargura()*getProfundidade() + 
+			 getLargura()*getAltura() + getProfundidade()*getAltura()); }
 			double getVolume(void) const { return getLargura() * getAltura() * getProfundidade(); }
 
-		
+
 };    
 
 #endif
