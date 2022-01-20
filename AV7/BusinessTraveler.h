@@ -44,9 +44,9 @@ class BusinessTraveler: public Traveler{
     private:
     Pager pag;
     public:
-        BusinessTraveler(string _str = "1"): Traveler(_str), pag.id(_str) {}
+        BusinessTraveler(string _str = "1"): Traveler(_str), pag(Pager(_str)) {}
         BusinessTraveler(const BusinessTraveler &obj):
-        Traveler(obj.name), pag.id(obj.pag) {}
+        Traveler(obj.name), pag(obj.pag) {}
         BusinessTraveler& operator=(const BusinessTraveler &obj){
             name = obj.pag.id;
             pag = obj.pag; 
