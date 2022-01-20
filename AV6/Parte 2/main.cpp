@@ -36,7 +36,7 @@ int main(){
 
     
     Matrix<double> m4(2, 3, 6);
-    std::cout << "Matrix<double> m4(2, 3)" << endl;
+    std::cout << "Matrix<double> m4(2, 3, 6)" << endl;
     std::cout << "-> Matriz de dimensao " << m4.getRows() << " x " << m4.getCols() << endl;
     std::cout << "m4 = " << endl << m4 << endl;
     
