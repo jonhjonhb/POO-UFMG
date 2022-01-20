@@ -15,28 +15,41 @@ Operador de atribuição
 */
 
 class Traveler {
-
+    
+    protected:
+        string name;
     public:
-        string str;
-        Traveler(string _str):str(_str) {}
+        Traveler(string _str):name(_str) {}
+        Traveler(const Traveler &obj):name(obj.name) {}
+        Traveler& operator=(const Traveler &obj){
+            name = obj.name; 
+        }
+    
 }
 
 class Pager {
 
+    protected:
+        string id;
     public:
-        string str;
-        Traveler(string _str):str(_str) {}
+        Pager(string _str):id(_str) {}
+        Pager(const Pager &obj):id(obj.id){}
+        Pager& operator=(const Pager &obj){
+            id = obj.id; 
+        }
 }
 
 class BusinessTraveler: public Traveler{
-    
+    private:
     Pager pag;
-
     public:
-        BusinessTraveler(string _str = 1): Traveler(_str), Pager(_str) {}
-
-        businessTraveler(string _str): Traveler(_str), Pager(_str) {}
-
+        BusinessTraveler(string _str = "1"): Traveler(_str), Pager(_str) {}
+        BusinessTraveler(const BusinessTraveler &obj):
+        name(obj.name), pag(obj.pag) {}
+        BusinessTraveler& operator=(const BusinessTraveler &obj){
+            name = obj.id;
+            pag = obj.pag; 
+        }
 }
 
 #endif
