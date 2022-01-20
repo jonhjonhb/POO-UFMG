@@ -25,7 +25,7 @@ class Traveler {
             name = obj.name; 
         }
     
-}
+};
 
 class Pager {
 
@@ -37,19 +37,20 @@ class Pager {
         Pager& operator=(const Pager &obj){
             id = obj.id; 
         }
-}
+    friend class BusinessTraveler;    
+};
 
 class BusinessTraveler: public Traveler{
     private:
     Pager pag;
     public:
-        BusinessTraveler(string _str = "1"): Traveler(_str), Pager(_str) {}
+        BusinessTraveler(string _str = "1"): Traveler(_str), pag.id(_str) {}
         BusinessTraveler(const BusinessTraveler &obj):
-        name(obj.name), pag(obj.pag) {}
+        Traveler(obj.name), pag.id(obj.pag) {}
         BusinessTraveler& operator=(const BusinessTraveler &obj){
-            name = obj.id;
+            name = obj.pag.id;
             pag = obj.pag; 
         }
-}
+};
 
 #endif
