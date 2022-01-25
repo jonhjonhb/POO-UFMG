@@ -18,4 +18,14 @@ class Pessoa {
     int getIdade(void) const { return _idade;}
 }
 
+class Amigo: public Pessoa {
+  private:
+    string _aniversario;
+  public:
+    Amigo(): _aniversario("indefinido") {}
+    // Getters e Setters
+    void setAniversario(string aniversario) { _aniversario = aniversario; }
+    string getAniversario(void) const { return _aniversario; }
+}
+
 #endif
