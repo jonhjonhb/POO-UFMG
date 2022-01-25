@@ -21,6 +21,7 @@ class Pessoa {
     virtual void set(string nome, int idade, string);
     string getNome(void) const { return _nome;}
     int getIdade(void) const { return _idade;}
+    virtual string getInfoVar(void) const;
 };
 
 class Amigo: public Pessoa {
@@ -31,6 +32,7 @@ class Amigo: public Pessoa {
     // Getters e Setters
     void setAniversario(string aniversario) { _aniversario = aniversario; }
     string getAniversario(void) const { return _aniversario; }
+    string getInfoVar(void)const {return getAniversario(); }
     void set(string nome, int idade, string aniversario){
       setNome(nome);
       setIdade(idade);
@@ -46,6 +48,7 @@ class Conhecido: public Pessoa{
     // Getters e Setters
     void setEmail(string email) { _email = email; }
     string getEmail(void) const { return _email; }
+    string getInfoVar(void)const{ return getEmail(); };
     void set(string nome, int idade, string email){
       setNome(nome);
       setIdade(idade);
@@ -70,6 +73,8 @@ class Agenda{
     int getAmigos(void) const { return amigos; }
     int getConhecidos(void) const { return conhecidos; }
     void addInformacoes(void);
+    void imprimeAniversários(void);
+    /*crie um método chamado imprimeAniversários, que imprime os aniversários de todos os amigos que estão armazenados na agenda.*/
 };
 
 void Agenda::criarAgenda(int qntPessoas){
@@ -113,6 +118,14 @@ void Agenda::addInformacoes(void) {
       cout << endl;
     }
     p.set(nome, idade, var);
+  }
+}
+
+void Agenda::imprimeAniversários(void){
+  for (Pessoa p : grupo){
+    if(typeid(p) == typeid(Amigo)){
+      cout << p.getNome() << "| Data de Aniversario: " << p.getInfoVar() << endl;
+    }
   }
 }
 
