@@ -28,4 +28,14 @@ class Amigo: public Pessoa {
     string getAniversario(void) const { return _aniversario; }
 }
 
+class Conhecido: public Pessoa{
+  private:
+    string _email;
+  public:
+    Conhecido(): _email("indefinido") {}
+    // Getters e Setters
+    void setEmail(string email) { _email = email; }
+    string getEmail(void) const { return _email; }
+}
+
 #endif
