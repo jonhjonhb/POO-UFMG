@@ -5,6 +5,7 @@
 #include<iostream>
 #include<vector>
 #include<ctime>
+#include<typeinfo>
 using namespace std;
 
 class Pessoa {
@@ -17,6 +18,7 @@ class Pessoa {
     // Getters e Setters
     void setNome(string nome) { _nome = nome; }
     void setIdade(int idade) { _idade = idade;}
+    virtual void set(string nome, int idade, string);
     string getNome(void) const { return _nome;}
     int getIdade(void) const { return _idade;}
 };
@@ -29,6 +31,11 @@ class Amigo: public Pessoa {
     // Getters e Setters
     void setAniversario(string aniversario) { _aniversario = aniversario; }
     string getAniversario(void) const { return _aniversario; }
+    void set(string nome, int idade, string aniversario){
+      setNome(nome);
+      setIdade(idade);
+      setAniversario(aniversario);
+    }
 };
 
 class Conhecido: public Pessoa{
@@ -39,6 +46,11 @@ class Conhecido: public Pessoa{
     // Getters e Setters
     void setEmail(string email) { _email = email; }
     string getEmail(void) const { return _email; }
+    void set(string nome, int idade, string email){
+      setNome(nome);
+      setIdade(idade);
+      setEmail(email);
+    }
 };
 
 class Agenda{
@@ -54,8 +66,10 @@ class Agenda{
     void criarAgenda(int qntPessoas);
     Agenda(int qntPessoas){ criarAgenda(qntPessoas); }
     // Getters
+    int getQntPessoas(void) const { return getAmigos() + getConhecidos(); }
     int getAmigos(void) const { return amigos; }
     int getConhecidos(void) const { return conhecidos; }
+    void addInformacoes(void);
 };
 
 void Agenda::criarAgenda(int qntPessoas){
@@ -76,6 +90,30 @@ void Agenda::criarAgenda(int qntPessoas){
       }
     } 
   }
-};
+}
+
+void Agenda::addInformacoes(void) {
+  string nome;
+  int idade;
+  string var;
+  for (Pessoa p : grupo){
+    cout << "Digite o nome do contato: ";
+    cin >> nome;
+    cout << endl;
+    cout << "Digite a idade do contato: ";
+    cin >> idade;
+    cout << endl;
+    if(typeid(p) == typeid(Amigo)){
+      cout << "Digite a data de aniversario do contato: ";
+      cin >> var;
+      cout << endl;
+    } else {
+      cout << "Digite o e-mail do contato: ";
+      cin >> var;
+      cout << endl;
+    }
+    p.set(nome, idade, var);
+  }
+}
 
 #endif
