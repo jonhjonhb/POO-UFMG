@@ -74,7 +74,7 @@ class Agenda{
     int getConhecidos(void) const { return conhecidos; }
     void addInformacoes(void);
     void imprimeAniversários(void);
-    /*crie um método chamado imprimeAniversários, que imprime os aniversários de todos os amigos que estão armazenados na agenda.*/
+    void imprimeEmail(void);
 };
 
 void Agenda::criarAgenda(int qntPessoas){
@@ -125,6 +125,14 @@ void Agenda::imprimeAniversários(void){
   for (Pessoa p : grupo){
     if(typeid(p) == typeid(Amigo)){
       cout << p.getNome() << "| Data de Aniversario: " << p.getInfoVar() << endl;
+    }
+  }
+}
+
+void Agenda::imprimeEmail(void){
+  for (Pessoa p : grupo){
+    if(typeid(p) == typeid(Conhecido)){
+      cout << p.getNome() << "| E-mail: " << p.getInfoVar() << endl;
     }
   }
 }
