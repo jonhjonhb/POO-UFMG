@@ -118,7 +118,7 @@ void Agenda::addInformacoes(void) {
 void Agenda::imprimeAniversarios(void){
   for (auto p : grupo){
     if(typeid(*p) == typeid(Amigo)){
-      cout << p->getNome() << "| Data de Aniversario: " << p->getInfoVar() << endl;
+      cout << p->getNome() << " | Data de Aniversario: " << p->getInfoVar() << endl;
     }
   }
 }
@@ -126,7 +126,7 @@ void Agenda::imprimeAniversarios(void){
 void Agenda::imprimeEmail(void){
   for (auto p : grupo){
     if(typeid(*p) == typeid(Conhecido)){
-      cout << p->getNome() << "| E-mail: " << p->getInfoVar() << endl;
+      cout << p->getNome() << " | E-mail: " << p->getInfoVar() << endl;
     }
   }
 }
