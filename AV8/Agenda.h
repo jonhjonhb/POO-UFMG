@@ -104,7 +104,6 @@ void Agenda::addInformacoes(void) {
     cin >> nome;
     cout << "Digite a idade do contato: ";
     cin >> idade;
-    cout << typeid(*p).name();
     if(typeid(*p) == typeid(Amigo)){
       cout << "Digite a data de aniversario do contato: ";
       cin >> var;
