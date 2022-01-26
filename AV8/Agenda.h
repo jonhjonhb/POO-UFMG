@@ -73,7 +73,7 @@ class Agenda{
     int getAmigos(void) const { return amigos; }
     int getConhecidos(void) const { return conhecidos; }
     void addInformacoes(void);
-    void imprimeAniversários(void);
+    void imprimeAniversarios(void);
     void imprimeEmail(void);
 };
 
@@ -121,7 +121,7 @@ void Agenda::addInformacoes(void) {
   }
 }
 
-void Agenda::imprimeAniversários(void){
+void Agenda::imprimeAniversarios(void){
   for (Pessoa p : grupo){
     if(typeid(p) == typeid(Amigo)){
       cout << p.getNome() << "| Data de Aniversario: " << p.getInfoVar() << endl;
