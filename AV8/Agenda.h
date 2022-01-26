@@ -18,10 +18,10 @@ class Pessoa {
     // Getters e Setters
     void setNome(string nome) { _nome = nome; }
     void setIdade(int idade) { _idade = idade;}
-    virtual void set(string nome, int idade, string);
+    virtual void set(string nome, int idade, string) {}
     string getNome(void) const { return _nome;}
     int getIdade(void) const { return _idade;}
-    virtual string getInfoVar(void) const;
+    virtual string getInfoVar(void) { return "[ERRO]: class Pessoa."; }
 };
 
 class Amigo: public Pessoa {
@@ -32,7 +32,7 @@ class Amigo: public Pessoa {
     // Getters e Setters
     void setAniversario(string aniversario) { _aniversario = aniversario; }
     string getAniversario(void) const { return _aniversario; }
-    string getInfoVar(void)const {return getAniversario(); }
+    string getInfoVar(void) {return getAniversario(); }
     void set(string nome, int idade, string aniversario){
       setNome(nome);
       setIdade(idade);
@@ -48,7 +48,7 @@ class Conhecido: public Pessoa{
     // Getters e Setters
     void setEmail(string email) { _email = email; }
     string getEmail(void) const { return _email; }
-    string getInfoVar(void)const{ return getEmail(); };
+    string getInfoVar(void){ return getEmail(); }
     void set(string nome, int idade, string email){
       setNome(nome);
       setIdade(idade);
@@ -58,7 +58,7 @@ class Conhecido: public Pessoa{
 
 class Agenda{
   private:
-    std::vector<Pessoa> grupo;
+    std::vector<Pessoa *> grupo;
     int amigos;
     int conhecidos;
     int aleatorio() {
@@ -82,14 +82,12 @@ void Agenda::criarAgenda(int qntPessoas){
   for(i = 0; i < qntPessoas; i++){
     switch(aleatorio()) { 
       case 1: {
-        Amigo p1;
-        grupo.push_back(p1);
+        grupo.push_back(new Amigo);
         amigos++;
         break;
       }
       case 2: {
-        Conhecido p2;
-        grupo.push_back(p2);
+        grupo.push_back(new Conhecido);
         conhecidos++;
         break;
       }
@@ -101,38 +99,35 @@ void Agenda::addInformacoes(void) {
   string nome;
   int idade;
   string var;
-  for (Pessoa p : grupo){
-    cout << "Digite o nome do contato: ";
+  for (auto p : grupo){
+    cout << endl << "Digite o nome do contato: ";
     cin >> nome;
-    cout << endl;
     cout << "Digite a idade do contato: ";
     cin >> idade;
-    cout << endl;
-    if(typeid(p) == typeid(Amigo)){
+    cout << typeid(*p).name();
+    if(typeid(*p) == typeid(Amigo)){
       cout << "Digite a data de aniversario do contato: ";
       cin >> var;
-      cout << endl;
-    } else {
+    } else if(typeid(*p) == typeid(Conhecido)){
       cout << "Digite o e-mail do contato: ";
       cin >> var;
-      cout << endl;
     }
-    p.set(nome, idade, var);
+    p->set(nome, idade, var);
   }
 }
 
 void Agenda::imprimeAniversarios(void){
-  for (Pessoa p : grupo){
-    if(typeid(p) == typeid(Amigo)){
-      cout << p.getNome() << "| Data de Aniversario: " << p.getInfoVar() << endl;
+  for (auto p : grupo){
+    if(typeid(*p) == typeid(Amigo)){
+      cout << p->getNome() << "| Data de Aniversario: " << p->getInfoVar() << endl;
     }
   }
 }
 
 void Agenda::imprimeEmail(void){
-  for (Pessoa p : grupo){
-    if(typeid(p) == typeid(Conhecido)){
-      cout << p.getNome() << "| E-mail: " << p.getInfoVar() << endl;
+  for (auto p : grupo){
+    if(typeid(*p) == typeid(Conhecido)){
+      cout << p->getNome() << "| E-mail: " << p->getInfoVar() << endl;
     }
   }
 }
