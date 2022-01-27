@@ -28,7 +28,7 @@ class Amigo: public Pessoa {
   private:
     string _aniversario;
   public:
-    Amigo(): _aniversario("indefinido") {}
+    Amigo(): Pessoa(), _aniversario("indefinido") {}
     // Getters e Setters
     void setAniversario(string aniversario) { _aniversario = aniversario; }
     string getAniversario(void) const { return _aniversario; }
@@ -44,7 +44,7 @@ class Conhecido: public Pessoa{
   private:
     string _email;
   public:
-    Conhecido(): _email("indefinido") {}
+    Conhecido(): Pessoa(), _email("indefinido") {}
     // Getters e Setters
     void setEmail(string email) { _email = email; }
     string getEmail(void) const { return _email; }
@@ -62,11 +62,10 @@ class Agenda{
     int amigos;
     int conhecidos;
     int aleatorio() {
-      srand((unsigned int) time (NULL));
       return 1 + rand()%2;
     }
-  public:
     void criarAgenda(int qntPessoas);
+  public:
     Agenda(int qntPessoas){ criarAgenda(qntPessoas); }
     // Getters
     int getQntPessoas(void) const { return getAmigos() + getConhecidos(); }
@@ -78,8 +77,7 @@ class Agenda{
 };
 
 void Agenda::criarAgenda(int qntPessoas){
-  int i = 0; 
-  for(i = 0; i < qntPessoas; i++){
+  for(int i = 0; i < qntPessoas; i++){
     switch(aleatorio()) { 
       case 1: {
         grupo.push_back(new Amigo);
