@@ -14,17 +14,15 @@ class Professor{
     Professor(string n): nome(n){}
     string getName() const { return nome; };
     virtual double getSalario() = 0;
-    virtual ~Professor() {};
 };
 
 class ProfHorista: public Professor {
   private:
-    double nrNorasTrabalhadas;
+    double nrHorasTrabalhadas;
     double valorHora;
   public:
-    ProfHorista(string n, double nht, double vh): Professor(n), nrNorasTrabalhadas(nht), valorHora(vh) {}
-    double getSalario() { return nrNorasTrabalhadas*valorHora; };
-    virtual ~ProfHorista() {};
+    ProfHorista(string n, double nht, double vh): Professor(n), nrHorasTrabalhadas(nht), valorHora(vh) {}
+    double getSalario() { return nrHorasTrabalhadas*valorHora; };
 };
 
 class ProfIntegral: public Professor {
@@ -33,7 +31,6 @@ class ProfIntegral: public Professor {
   public:
     ProfIntegral(string n, double sm): Professor(n), salarioMensal(sm) {}
     double getSalario() { return salarioMensal; };
-    virtual ~ProfIntegral() {};
 };
 
 class Universidade {
@@ -42,7 +39,7 @@ class Universidade {
   public:
     void addProfessor(Professor *a) { funcionarios.push_back(a); };
     double totalPago() const;
-    void imprimeProfessores() const; 
+    void imprimeProfessores() const;
 };
 
 double Universidade::totalPago() const {
