@@ -34,6 +34,7 @@ class ProfIntegral: public Professor {
        double getSalario();
        virtual ~ProfIntegral(){}
 };
+
 Exercício 1: Continuação
 A universidade mantém uma lista de todos os seus professores ( vector ) e necessita de operações para adicionar professores nessa lista e para retornar o valor total pago mensalmente para todos os seus professores. Mostre o código da classe Universidade fazendo um código genérico utilizando o conceito de Polimorfismo.
 
