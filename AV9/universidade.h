@@ -1,5 +1,5 @@
-#ifndef UN_H
-#define UN_H
+#ifndef UNIVERSIDADE_H
+#define UNIVERSIDADE_H
 
 #include<string>
 #include<iostream>
@@ -14,7 +14,7 @@ class Professor{
     Professor(string n): nome(n){}
     string getName() const { return nome; };
     virtual double getSalario() = 0;
-    virtual ~Professor();
+    virtual ~Professor() {};
 };
 
 class ProfHorista: public Professor {
@@ -24,7 +24,7 @@ class ProfHorista: public Professor {
   public:
     ProfHorista(string n, double nht, double vh): Professor(n), nrNorasTrabalhadas(nht), valorHora(vh) {}
     double getSalario() { return nrNorasTrabalhadas*valorHora; };
-    virtual ~ProfHorista() {}
+    virtual ~ProfHorista() {};
 };
 
 class ProfIntegral: public Professor {
@@ -33,7 +33,7 @@ class ProfIntegral: public Professor {
   public:
     ProfIntegral(string n, double sm): Professor(n), salarioMensal(sm) {}
     double getSalario() { return salarioMensal; };
-    virtual ~ProfIntegral(){}
+    virtual ~ProfIntegral() {};
 };
 
 class Universidade {
